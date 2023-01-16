@@ -48,13 +48,11 @@ class state:
     def execute_function(self):
         self.function()
 
-    def add_switch(self,newSwitch,switch_condition,no_desc = False):
+    def add_switch(self,newSwitch,switch_condition):
         try:
             switchName = newSwitch.name
             self.switch_cases[switchName] = newSwitch
             self.switch_condition = switch_condition
-            if(not no_desc):
-                self.switch_explination = input("breifly explain the switch condition: ")
         except:
             print("Error code 1: state has no attribute 'name'")
             return
