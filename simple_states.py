@@ -6,7 +6,7 @@ class machine:
     def __init__(self):
         self.states = []
         self.state_names = []
-
+        self.cur_state = 0
     def add_state(self,newState):
         self.states.append(newState)
         try:
@@ -26,14 +26,23 @@ class machine:
         else:
             pos = self.state_names.index(req)
             self.states[pos].view_properties()
-    
+    def run(self):
+        if(len(self.states) < 1):
+            print("Error code 3: Machine has no states")
+        else:
+            while(1):
+                cur = self.states[self.cur_state]
+                cur.execute_function()
+                if(cur.switch_cases[cur.switch_var](cur.checkCondition())):
+                    print("You did it")
+                    self.cur_state = self.states.index(cur.go_to)
+                else:
+                    break
 
 
 class state:
     def __init__(self,name):
         self.name = name
-        self.switch_condition = None
-        self.switch_variable = None
         self.attributes = ["name: " + name]
         self.switch_cases = {}
 
@@ -48,16 +57,14 @@ class state:
     def execute_function(self):
         self.function()
 
-    def add_switch(self,newSwitch,switch_condition):
-        try:
-            switchName = newSwitch.name
-            self.switch_cases[switchName] = newSwitch
-            self.switch_condition = switch_condition
-        except:
-            print("Error code 1: state has no attribute 'name'")
-            return
-        self.attributes.append(f"switch case {len(self.switch_cases)}: \n   function {newSwitch} \n     condition {self.switch_condition}")
-            
+    def checkCondition(self):
+        return input("New val: ")
+
+    def add_switch(self,read_from,switch_expression,go_to):
+        self.go_to = go_to
+        self.switch_var = read_from
+        self.switch_cases[read_from] = switch_expression
+       
 def foo():
     print("Bar")
 
@@ -69,6 +76,9 @@ container = machine()
 A = state("A")
 B = state("B")
 
+plz = lambda x: x == "sw"
+dog = lambda x: x == "ws"
+
 A.add_function(foo)
 B.add_function(tom)
 
@@ -78,7 +88,6 @@ container.add_state(B)
 container.list_states()
 x = None
 
-A.add_switch(B,lambda x: x == 3,True)
-A.view_properties()
-x = 3
-A.view_properties()
+A.add_switch(13,plz,B)
+B.add_switch(12,dog,A)
+container.run()
