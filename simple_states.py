@@ -64,30 +64,3 @@ class state:
         self.go_to = go_to
         self.switch_var = read_from
         self.switch_cases[read_from] = switch_expression
-       
-def foo():
-    print("Bar")
-
-def tom():
-    print("Whoopsie")
-
-container = machine()
-
-A = state("A")
-B = state("B")
-
-plz = lambda x: x == "sw"
-dog = lambda x: x == "ws"
-
-A.add_function(foo)
-B.add_function(tom)
-
-container.add_state(A)
-container.add_state(B)
-
-container.list_states()
-x = None
-
-A.add_switch(13,plz,B)
-B.add_switch(12,dog,A)
-container.run()
