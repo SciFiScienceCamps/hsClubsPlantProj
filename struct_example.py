@@ -4,6 +4,7 @@ Author: Samuel Risling
 Date: 26/1/23
 """
 import tkinter as tk
+import math
 
 track = "no bear"
 
@@ -16,7 +17,7 @@ def clear_frames():
 def wait():
     clear_frames()
     global track
-    if(track == "bear seen"):
+    if(track == "bear seen" or track == "eaten"):
         track = "eaten"
         lbl_is_eaten.configure(bg="green")
     else:
@@ -54,7 +55,7 @@ def stop_run():
 
 
 states = ["intro","no_bear","is_bear","run","eaten"]
-active_state = states[0]
+
 
 window = tk.Tk()
 
@@ -147,16 +148,16 @@ buttons = [btn_run,btn_stop,btn_see_bear,btn_wait]
 
 clear_frames()
 
-for i in range(4):
-    for j in range(2):
-        labels[i+j].grid(row = i + 1, column=j)
+for label in labels:
+    label.grid(row = 0, column=0)
+    label.configure(anchor = "w")
 
 for i in range(2):
     for j in range(2):
-        buttons[i+j].grid(row = i, column=j/i)
+        buttons[2*i + j].grid(row = i,column = j)
+        buttons[2*i+j].configure(anchor="w")
+
+btn_see_bear.configure(bg = "yellow")
 
 
-
-##frm_state_grid.pack()
-##frm_buttons.pack()
 window.mainloop()
