@@ -1,0 +1,5 @@
+# inside this lib folder, you should find the adafruit_motor folder. You can choose to move the whole lib folder to the rasp pi and replace the existing lib folder and this should work
+# or alternatively, you can move the adafruit motor file into the already existing lib folder on the pi.
+
+# Let me know if you are having any issues
+#   - Connor
